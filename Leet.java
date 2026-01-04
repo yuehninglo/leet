@@ -17,6 +17,7 @@ public class Leet {
 		} else if (n <= -31) {
 			return Double.MIN_VALUE;
 		} else {
+            Math.pow(1,1);
 			int asbN = Math.abs(n);
 			BigDecimal bx = new BigDecimal(x);
 			BigDecimal res = new BigDecimal(1);
