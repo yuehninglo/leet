@@ -7,7 +7,7 @@ public class Leet {
 		leet.myPow(2, 10);
 	}
 
-	public double myPow(double x, int n) {
+	public double myPowWrong(double x, int n) {
 		if (n == 1) {
 			return x;
 		} else if (n == -1) {
@@ -35,7 +35,24 @@ public class Leet {
 				return Double.valueOf(one.divide(res, 10, RoundingMode.UNNECESSARY).toString());
 			}
 		}	
-    }	
+    }
+
+	// https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-logn-easy-faster-than-10-tr07/
+    public double myPow(double x, int n) {
+        if(n < 0) {
+            n = -n;
+            x = 1 / x;
+        }
+        double pow = 1;
+        while(n != 0) {
+            if((n & 1) != 0) { // means n%2 != 0
+                pow *= x;
+            } 
+            x *= x;
+            n >>>= 1; // n/2
+        }
+        return pow;
+    }
 
 
 }
