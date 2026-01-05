@@ -54,7 +54,20 @@ public class Leet {
         return pow;
     }
 
+	double myPowNest(double x, int n) {
+		if(n < 0) return 1/x * myPowNest(1/x, -(n+1));
+		if(n == 0) return 1;
+		if(n == 2) return x*x;
+		if(n%2 == 0) return myPowNest(myPowNest(x, n/2), 2);
+		else return x*myPowNest(myPowNest(x, n/2), 2);
+	}
 
+	double myPowDouble(double x, int n) {
+		if(n == 0) return 1;
+		double t = myPowDouble(x,n/2);
+		if(n%2) return n<0 ? 1/x*t*t : x*t*t;
+		else return t*t;
+	}
 }
 
 
