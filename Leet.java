@@ -38,6 +38,14 @@ public class Leet {
     }
 
 	// https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-logn-easy-faster-than-10-tr07/
+	// The logic is like this (use x == 2 & n == 11 as an example)
+	// first: 2^11
+	// become: 2 * 2^10
+	// become 2, (2^2 which is 4)^5, now pow is 2, x is 4 and n is 5
+	// become 2*4, (4^2 which is 16)^2, now pow is 8, x is 16 and n is 2
+    // become 2*4, (16^2 which is 256), now pow is 8, x is 256 and n is 1
+	// become 2*4*256, (256^2 which is 65536), now pow is 2048, x is 65536 and n is 0
+	// loop is terminated now, return pow which is the answer
     public double myPow(double x, int n) {
         if(n < 0) {
             n = -n;
