@@ -78,14 +78,33 @@ public class Leet {
 	}
 	
 	// https://leetcode.com/problems/simplify-path/
-	public String simplifyPath(String path) {
+	public String simplifyPathFirst(String path) {
 		StringBuffer sb = new StringBuffer("/");
 		String[] sArr = path.split("/");
-        for(String s: sArr) IO.println(s);
 		for(int i = 0; i < sArr.length; i++) {
 			if(sArr[i].equals("..") || sArr[i].equals(".") || sArr[i].equals("")) continue;
 			if(i != (sArr.length - 1) && sArr[i+1].equals("..")) continue;
 			sb.append(sArr[i]);
+			sb.append("/");
+		}
+		String res = sb.toString();
+		return res.length() == 1? res: res.substring(0, res.length() - 1);
+    }
+	
+	public String simplifyPath(String path) {
+		String[] sArr = path.split("/");
+		Deque<String> deque = new ArrayDeque<>();
+		for(int i = 0; i < sArr.length; i++) {
+			if(sArr[i].equals("..")) {
+                if(deque.size() > 0) deque.removeLast();
+                continue;
+            }
+			if(sArr[i].equals(".") || sArr[i].equals("")) continue;
+			deque.add(sArr[i]);
+		}
+		StringBuffer sb = new StringBuffer("/");
+		while(deque.size() > 0) {
+			sb.append(deque.removeFirst());
 			sb.append("/");
 		}
 		String res = sb.toString();
