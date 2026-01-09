@@ -110,6 +110,18 @@ public class Leet {
 		String res = sb.toString();
 		return res.length() == 1? res: res.substring(0, res.length() - 1);
     }
+	
+	// https://leetcode.com/problems/gray-code/
+	public List<Integer> grayCode(int n) {
+		List<Integer> rs=new ArrayList<Integer>();
+		rs.add(0);
+		for(int i=0;i<n;i++){
+			int size=rs.size();
+			for(int k=size-1;k>=0;k--)
+				rs.add(rs.get(k) | 1<<i);
+		}
+		return rs;
+	}
 }
 
 
