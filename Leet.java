@@ -122,6 +122,29 @@ public class Leet {
 		}
 		return rs;
 	}
+	
+	// https://leetcode.com/problems/unique-paths/
+	public int uniquePaths(int m, int n) {
+        if(m == 1) return 1;
+		int[] base = new int[n];
+		for(int i = 0; i < n; i++) base[i] = 1;
+		m--;
+		return dpUP(m, base)[n-1];
+    }
+	
+	int[] dpUP(int m, int[] base) {
+		m--;
+		int[] n = new int[base.length];
+		n[0] = 1;
+		for(int i = 1; i < n.length; i++) {
+			n[i] = n[i-1] + base[i];
+		}
+		if(m > 0) {
+			return dp(m, n);
+		} else {
+			return n;
+		}
+	}
 }
 
 
