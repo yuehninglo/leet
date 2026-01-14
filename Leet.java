@@ -145,6 +145,36 @@ public class Leet {
 			return n;
 		}
 	}
+	
+	// https://leetcode.com/problems/count-and-say/
+	public String countAndSay(int n) {
+		if(n == 1) return "1";
+        return casLoop(n-1, "11");
+    }
+	
+	String casLoop(int n, String str) {
+		n--;
+		if(n == 0) return str;
+		else {
+			char[] cArr = str.toCharArray();
+			char currentChar = cArr[0];
+			int c = 1;
+			StringBuilder sb = new StringBuilder();
+			for(int i = 1; i < cArr.length; i++) {
+				if(cArr[i-1] != cArr[i]) {
+					sb.append(c);
+					c = 0;
+					sb.append(cArr[i-1]);
+				}
+				if(currentChar != cArr[i]) currentChar = cArr[i];
+				c++;
+			}
+			sb.append(c);
+			sb.append(currentChar);
+			return casLoop(n, sb.toString());
+		}
+	}
+	
 }
 
 
