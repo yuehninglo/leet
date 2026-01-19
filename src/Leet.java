@@ -1,9 +1,6 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Leet {
     static void main() {
@@ -182,15 +179,23 @@ public class Leet {
 	// https://leetcode.com/problems/sort-colors/
 	public void sortColors(int[] nums) {
 		if(nums.length > 1) {
-			int l = 0;
-			int r = nums.length-1;
-			while(l < r) {
-				if(nums[l] == 0) l++;
-				else if(nums[r] == 2) r--;
-				else {
-					
-				}
-			}
+            int len = nums.length;
+			int[] copy = Arrays.copyOf(nums, len);
+            for (int i = 0; i < len; i++) {
+                nums[i] = 1;
+            }
+            int l = 0;
+            int r = len - 1;
+            for (int i = 0; i < len; i++) {
+                if(copy[i] == 0) {
+                    nums[l] = 0;
+                    l++;
+                }
+                if(copy[i] == 2) {
+                    nums[r] = 2;
+                    r--;
+                }
+            }
 		}			
     }
 	
