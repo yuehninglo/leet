@@ -198,9 +198,53 @@ public class Leet {
             }
 		}			
     }
+
+    // https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
+    public Node connect(Node root) {
+        if(root != null) {
+            Node res = new Node();
+            Node current = res;
+            Queue<Node> q = new ArrayDeque<>();
+            q.add(root);
+            while(q.size() > 0) {
+                int len = q.size();
+                for (int i = 0; i < len; i++) {
+                    Node n = q.remove();
+                    current.next = n;
+                    current = current.next;
+                    if(n != null) {
+                        if (n.left != null) q.add(n.left);
+                        if (n.right != null) q.add(n.right);
+                    }
+                }
+                current.next = new Node();
+                current = current.next;
+            }
+            return res.next;
+        }
+        return root;
+    }
+
+
 	
 }
 
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+    public Node() {}
 
+    public Node(int _val) {
+        val = _val;
+    }
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+}
 
 
