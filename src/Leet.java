@@ -232,6 +232,33 @@ public class Leet {
         }
         return root;
     }
+
+    // https://leetcode.com/problems/insert-interval/description/
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        if(intervals.length == 0) {
+            int[][] res = new int[2][1];
+            res[0] = newInterval;
+            return res;
+        }
+        Queue<Integer> q = new LinkedList<>();
+        int l = newInterval[0];
+        int r = newInterval[1];
+        for(int[] e: intervals) {
+            int el = e[0];
+            int er = e[1];
+            if(er < l) {
+                q.add(el);
+                q.add(er);
+            } else if(el <= l && l < er) {
+                q.add(el);
+                if(r <= er) q.add(er);
+            }
+
+        }
+
+
+
+    }
 }
 
 class Node {
