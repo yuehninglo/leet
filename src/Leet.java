@@ -240,24 +240,38 @@ public class Leet {
             res[0] = newInterval;
             return res;
         }
-        Queue<Integer> q = new LinkedList<>();
         int l = newInterval[0];
         int r = newInterval[1];
-        for(int[] e: intervals) {
-            int el = e[0];
-            int er = e[1];
-            if(er < l) {
-                q.add(el);
-                q.add(er);
-            } else if(el <= l && l < er) {
-                q.add(el);
-                if(r <= er) q.add(er);
+        Stack<Integer> stack = new Stack<>();
+        stack.push(l);
+        stack.push(r);
+        for (int i = 0; i < intervals.length; i++) {
+            int e1 = intervals[i][0];
+            int e2 = intervals[i][1];
+            if(e1 >= stack.peek()) {
+                stack.push(e1);
+                stack.push(e2);
+            } else {
+                compareAndPush(stack, e1);
+                compareAndPush(stack, e2);
             }
-
         }
 
+        return null;
 
+    }
 
+    private void compareAndPush(Stack<Integer> stack, int num) {
+        Stack<Integer> tempStack = new Stack<>();
+        while(!stack.isEmpty()) {
+            Integer ele = stack.peek();
+            if(num > ele) break;
+            else {
+                tempStack.push(stack.pop());
+            }
+        }
+        stack.push(num);
+        while(!tempStack.isEmpty()) stack.push(tempStack.pop());
     }
 }
 
