@@ -234,7 +234,7 @@ public class Leet {
     }
 
     // https://leetcode.com/problems/insert-interval/description/
-    public int[][] insert(int[][] intervals, int[] newInterval) {
+    public int[][] insertWrong(int[][] intervals, int[] newInterval) {
         if(intervals.length == 0) {
             int[][] res = new int[2][1];
             res[0] = newInterval;
@@ -273,6 +273,37 @@ public class Leet {
         stack.push(num);
         while(!tempStack.isEmpty()) stack.push(tempStack.pop());
     }
+
+	public int[][] insert(int[][] intervals, int[] newInterval) {
+		if(intervals.length == 0) {
+            int[][] res  = new int[1][2];
+            res[0] = newInterval;
+            return res;
+        }
+        int firstE = newInterval[0];
+		int secondE = newInterval[1];
+		List<int[]> leftList = new LinkedList<>();
+		List<int[]> rightList = new LinkedList<>();
+		for (int i = 0; i < intervals.length; i++) {
+			if (intervals[i][1] < firstE) leftList.add(intervals[i]);
+			if (intervals[i][0] < secondE) rightList.add(intervals[i]);
+		}
+		if (leftList.size() + rightList.size() != intervals.length) {
+			firstE = Math.min(firstE, intervals[leftList.size()][0]);
+			secondE = Math.max(secondE, intervals[intervals.length-rightList.size()-1][1]);
+		}
+		List<int[]> res = new LinkedList<>();
+		res.addAll(leftList);
+		res.add(new int[]{firstE, secondE});
+		res.addAll(rightList);
+		int[][] res2 = new int[res.size()][2];
+		for (int i = 0; i < res.size(); i++) {
+			res2[i] = res.get(i);
+		}
+		return res2;
+    }
+
+	
 }
 
 class Node {
