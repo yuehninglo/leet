@@ -274,6 +274,7 @@ public class Leet {
         while(!tempStack.isEmpty()) stack.push(tempStack.pop());
     }
 
+	// intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
 	public int[][] insert(int[][] intervals, int[] newInterval) {
 		if(intervals.length == 0) {
             int[][] res  = new int[1][2];
@@ -286,7 +287,7 @@ public class Leet {
 		List<int[]> rightList = new LinkedList<>();
 		for (int i = 0; i < intervals.length; i++) {
 			if (intervals[i][1] < firstE) leftList.add(intervals[i]);
-			if (intervals[i][0] < secondE) rightList.add(intervals[i]);
+			if (intervals[i][0] > secondE) rightList.add(intervals[i]);
 		}
 		if (leftList.size() + rightList.size() != intervals.length) {
 			firstE = Math.min(firstE, intervals[leftList.size()][0]);
