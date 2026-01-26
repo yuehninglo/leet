@@ -4,8 +4,14 @@ import java.util.*;
 
 public class Leet {
     static void main() {
-		var leet = new Leet();
-		leet.myPow(2, 10);
+		// var leet = new Leet();
+		// leet.myPow(2, 10);
+		var test = new int[2][5];
+		for (int i = 0; i < test.length; i++) {
+			for (int j = 0; j < test[i].length; j++) {
+				System.out.println(i + " " + j);
+			}
+		}
 	}
 
 	public double myPowWrong(double x, int n) {
@@ -304,6 +310,32 @@ public class Leet {
 		return res2;
     }
 
+	// https://leetcode.com/problems/word-search/description/
+	public boolean exist(char[][] board, String word) {
+        List<int[]> startPoints = findStartPoints(board, word.charAt(0));
+		return true;
+    }
+
+    private List<int[]> findStartPoints(char[][] board, char start) {
+		List<int[]> res = new LinkedList<>();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if(board[i][j] == start) res.add(new int[]{i, j});
+			}
+		}
+		return res;
+	}
+	
+	private boolean searchWords(char[][] board, int i, int j, StringBuffer sb, String word) {
+		char newChar = board[i][j];
+		sb.append(newChar);
+		if(sb.toString().equals(word)) return true;
+		else if(i == board.length-1 && j == board[0].length-1) return false;
+		else {
+			
+		}
+		return false;
+	}
 	
 }
 
