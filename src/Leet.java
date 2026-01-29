@@ -3,17 +3,7 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class Leet {
-    static void main() {
-		// var leet = new Leet();
-		// leet.myPow(2, 10);
-		var test = new int[2][5];
-		for (int i = 0; i < test.length; i++) {
-			for (int j = 0; j < test[i].length; j++) {
-				System.out.println(i + " " + j);
-			}
-		}
-	}
-
+    
 	public double myPowWrong(double x, int n) {
 		if (n == 1) {
 			return x;
@@ -331,18 +321,19 @@ public class Leet {
 	}
 	
 	private boolean searchWords(char[][] board, int i, int j, StringBuffer sb, String word) {
-		if(i < board.length && j < board[0].length && i >= 0 && j >= 0) {
+		if(i < board.length && j < board[0].length && i >= 0 && j >= 0 && board[i][j] != '-') {
 			char newChar = board[i][j];
+			board[i][j] = '-';
 			sb.append(newChar);
 			String s = sb.toString();
 			if(s.equals(word)) return true;
-			else {
-				if(s.length() < word.length()) {
-					return searchWords(board, i+1, j, sb, word) ||
-					       searchWords(board, i-1, j, sb, word) ||
-						   searchWords(board, i, j+1, sb, word) ||
-						   searchWords(board, i, j-1, sb, word);
-				}
+			if(!word.contains(s)) sb.deleteCharAt(sb.length()-1);
+			System.out.println("s: " + sb.toString());
+			if(sb.length() < word.length()) {
+				return searchWords(board, i+1, j, sb, word) ||
+						searchWords(board, i-1, j, sb, word) ||
+						searchWords(board, i, j+1, sb, word) ||
+						searchWords(board, i, j-1, sb, word);
 			}
 		}
 		return false;
@@ -354,7 +345,27 @@ public class Leet {
 
 		return "";
     }
-	
+
+	static void main() {
+		var leet = new Leet();
+		// leet.myPow(2, 10);
+		// var test = new int[2][5];
+		// for (int i = 0; i < test.length; i++) {
+		// 	for (int j = 0; j < test[i].length; j++) {
+		// 		System.out.println(i + " " + j);
+		// 	}
+		// }
+		
+		char[][] board = new char[3][4];
+		char[] a = new char[]{'A','B','C','E'};
+		char[] b = new char[]{'S','F','C','S'};
+		char[] c = new char[]{'A','D','E','E'};
+		board[0] = a;
+		board[1] = b;
+		board[2] = c;
+		leet.exist(board, "ABCCED");
+	}
+
 }
 
 class Node {
