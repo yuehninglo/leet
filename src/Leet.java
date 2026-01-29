@@ -312,8 +312,12 @@ public class Leet {
 
 	// https://leetcode.com/problems/word-search/description/
 	public boolean exist(char[][] board, String word) {
+		boolean res = false;
         List<int[]> startPoints = findStartPoints(board, word.charAt(0));
-		return true;
+		for (int[] is : startPoints) {
+			res = res == true? res: searchWords(board, is[0], is[1], new StringBuffer(), word);
+		}
+		return res;
     }
 
     private List<int[]> findStartPoints(char[][] board, char start) {
@@ -327,15 +331,29 @@ public class Leet {
 	}
 	
 	private boolean searchWords(char[][] board, int i, int j, StringBuffer sb, String word) {
-		char newChar = board[i][j];
-		sb.append(newChar);
-		if(sb.toString().equals(word)) return true;
-		else if(i == board.length-1 && j == board[0].length-1) return false;
-		else {
-			
+		if(i < board.length && j < board[0].length && i >= 0 && j >= 0) {
+			char newChar = board[i][j];
+			sb.append(newChar);
+			String s = sb.toString();
+			if(s.equals(word)) return true;
+			else {
+				if(s.length() < word.length()) {
+					return searchWords(board, i+1, j, sb, word) ||
+					       searchWords(board, i-1, j, sb, word) ||
+						   searchWords(board, i, j+1, sb, word) ||
+						   searchWords(board, i, j-1, sb, word);
+				}
+			}
 		}
 		return false;
 	}
+
+	// https://www.hackerrank.com/challenges/larrys-array/problem?isFullScreen=true
+	public static String larrysArray(List<Integer> A) {
+		
+
+		return "";
+    }
 	
 }
 
