@@ -305,7 +305,9 @@ public class Leet {
 		boolean res = false;
         List<int[]> startPoints = findStartPoints(board, word.charAt(0));
 		for (int[] is : startPoints) {
-			res = res == true? res: searchWords(board, is[0], is[1], new StringBuffer(), word);
+			System.out.println("[" + is[0] + ", " + is[1] + "]");
+			System.out.println("---------------------------------");
+			res = res == true? res: searchWords(Arrays.copyOf(board, board.length), is[0], is[1], new StringBuffer(), word);
 		}
 		return res;
     }
@@ -326,9 +328,9 @@ public class Leet {
 			board[i][j] = '-';
 			sb.append(newChar);
 			String s = sb.toString();
+			System.out.println(s);
 			if(s.equals(word)) return true;
 			if(!word.contains(s)) sb.deleteCharAt(sb.length()-1);
-			System.out.println("s: " + sb.toString());
 			if(sb.length() < word.length()) {
 				return searchWords(board, i+1, j, sb, word) ||
 						searchWords(board, i-1, j, sb, word) ||
@@ -363,7 +365,7 @@ public class Leet {
 		board[0] = a;
 		board[1] = b;
 		board[2] = c;
-		leet.exist(board, "ABCCED");
+		System.out.println(leet.exist(board, "ABCCED"));
 	}
 
 }
