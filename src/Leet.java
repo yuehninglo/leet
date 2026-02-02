@@ -302,43 +302,42 @@ public class Leet {
 
 	// https://leetcode.com/problems/word-search/description/
 	public boolean exist(char[][] board, String word) {
-		boolean res = false;
-        List<int[]> startPoints = findStartPoints(board, word.charAt(0));
-		for (int[] is : startPoints) {
-			System.out.println("[" + is[0] + ", " + is[1] + "]");
-			System.out.println("---------------------------------");
-			res = res == true? res: searchWords(Arrays.copyOf(board, board.length), is[0], is[1], new StringBuffer(), word);
+		if (board == null || board.length == 0 || word == null || word.length() == 0) {
+			return false;
 		}
-		return res;
-    }
-
-    private List<int[]> findStartPoints(char[][] board, char start) {
-		List<int[]> res = new LinkedList<>();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				if(board[i][j] == start) res.add(new int[]{i, j});
-			}
-		}
-		return res;
-	}
-	
-	private boolean searchWords(char[][] board, int i, int j, StringBuffer sb, String word) {
-		if(i < board.length && j < board[0].length && i >= 0 && j >= 0 && board[i][j] != '-') {
-			char newChar = board[i][j];
-			board[i][j] = '-';
-			sb.append(newChar);
-			String s = sb.toString();
-			System.out.println(s);
-			if(s.equals(word)) return true;
-			if(!word.contains(s)) sb.deleteCharAt(sb.length()-1);
-			if(sb.length() < word.length()) {
-				return searchWords(board, i+1, j, sb, word) ||
-						searchWords(board, i-1, j, sb, word) ||
-						searchWords(board, i, j+1, sb, word) ||
-						searchWords(board, i, j-1, sb, word);
+				if (board[i][j] == word.charAt(0) && dfs(board, word, 0, i, j)) {
+					return true;
+				}
 			}
 		}
 		return false;
+	}
+	
+	private boolean dfs(char[][] board, String word, int index, int i, int j) {
+		// Base case: we've matched the entire word
+		if (index == word.length()) {
+			return true;
+		}
+		// Boundary check
+		if (i < 0 || i >= board.length || j < 0 || j >= board[i].length) {
+			return false;
+		}
+		// Current cell doesn't match the expected character
+		if (board[i][j] != word.charAt(index)) {
+			return false;
+		}
+		// Mark current cell as visited
+		board[i][j] = '-';
+		// Try all 4 directions
+		boolean found = dfs(board, word, index + 1, i + 1, j) ||
+		                dfs(board, word, index + 1, i - 1, j) ||
+		                dfs(board, word, index + 1, i, j + 1) ||
+		                dfs(board, word, index + 1, i, j - 1);
+		// Backtrack: restore the original character
+		board[i][j] = word.charAt(index);
+		return found;
 	}
 
 	// https://www.hackerrank.com/challenges/larrys-array/problem?isFullScreen=true
