@@ -347,6 +347,20 @@ public class Leet {
 		return "";
     }
 
+	// https://leetcode.com/problems/maximum-gap/description/
+	public int maximumGap(int[] nums) {
+		if (nums.length < 2) return 0;
+		int ptr = 0;
+		Arrays.sort(nums);
+		int maxGap = 0;
+		while(ptr < nums.length - 1) {
+			int gap = nums[ptr+1] - nums[ptr];
+			if (gap > maxGap) maxGap = gap;
+			ptr++;
+		}
+		return maxGap;
+	}
+
 	static void main() {
 		var leet = new Leet();
 		// leet.myPow(2, 10);
