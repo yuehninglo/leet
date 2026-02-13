@@ -371,6 +371,23 @@ public class Leet {
 		return maxGap;
 	}
 
+	// https://leetcode.com/problems/combinations/
+	public List<List<Integer>> combine(int n, int k) {
+		List<List<Integer>> resList = new ArrayList<>();
+		Queue<Integer> q = new LinkedList<>();
+		for (int i = 1; i <= n; i++) {
+			createQ(q, i, n);
+		}
+		return resList;
+    }
+
+	private void createQ(Queue<Integer> q, int start, int end) {
+		for (int i = start; i <= end; i++) {
+			q.offer(i);
+		}
+	
+	}
+
 	static void main() {
 		var leet = new Leet();
 		// leet.myPow(2, 10);
