@@ -373,19 +373,22 @@ public class Leet {
 
 	// https://leetcode.com/problems/combinations/
 	public List<List<Integer>> combine(int n, int k) {
-		List<List<Integer>> resList = new ArrayList<>();
-		Queue<Integer> q = new LinkedList<>();
-		for (int i = 1; i <= n; i++) {
-			createQ(q, i, n);
-		}
-		return resList;
+		List<List<Integer>> res = new ArrayList<>();
+		List<Integer> current = new ArrayList<>();
+		backtrack(current, 1, res, n, k);
+		return res;
     }
 
-	private void createQ(Queue<Integer> q, int start, int end) {
-		for (int i = start; i <= end; i++) {
-			q.offer(i);
+	private void backtrack(List<Integer> current, int start, List<List<Integer>> res, int n, int k) {
+		if(current.size() == k) {
+			res.add(new ArrayList<>(current));
+			return;
 		}
-	
+		for(int i = start; i <= n; i++) {
+			current.add(i);
+			backtrack(current, i + 1, res, n, k);
+			current.remove(current.size() - 1);
+		}
 	}
 
 	static void main() {
